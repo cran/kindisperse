@@ -39,6 +39,14 @@ simulate_kindist_simple(nsims = 5, sigma = 100, method = "Gaussian", kinship = "
 ## ----compsim------------------------------------------------------------------
 simulate_kindist_composite(nsims = 5, initsigma = 50, breedsigma = 30, gravsigma = 50, ovisigma = 10, method = "Laplace", kinship = "H1C", lifestage = "ovipositional")
 
+## ----dmodel-------------------------------------------------------------------
+dmodel <- dispersal_model(juvenile = 50, breeding = 40, gestation = 30, .FS = "juvenile", .HS = "breeding", .sampling_stage = "gestation")
+dmodel
+
+## ----customsim----------------------------------------------------------------
+simulate_kindist_custom(nsims = 5, model = dmodel, kinship = "PO")
+
+
 ## ----sampledims---------------------------------------------------------------
 
 compsim <- simulate_kindist_composite(nsims = 100000, kinship = "H2C")
@@ -117,5 +125,54 @@ cousins
 # bcomp allows supply of distribution to composite with bvect (this is done to match 
 # the cousin mixture in phase)
 axpermute_standard(avect = cousins, acat = "1C", amix = TRUE, amixcat = "H1C", bvect = fullsibs, bcomp = TRUE, bcompvect = halfsibs)
+
+
+## ----dispersal model----------------------------------------------------------
+
+antechinus_model <- dispersal_model(juvenile = 100, breeding = 50, gestation = 25, pouch = 25, .FS = "juvenile", .HS = "breeding", .sampling_stage = "juvenile")
+antechinus_model
+
+
+## ----initial_sim--------------------------------------------------------------
+library(magrittr)
+ant_po <- simulate_kindist_custom(nsims = 10000, model = antechinus_model, kinship = "PO")
+ant_po
+
+
+## ----ant basic po estimate----------------------------------------------------
+
+ant_fs <- simulate_kindist_custom(nsims = 10000, model = antechinus_model, kinship = "FS")
+ant_1c <- simulate_kindist_custom(nsims = 10000, model = antechinus_model, kinship = "1C")
+
+axials_standard(ant_1c, ant_fs) # larger dispersal category goes first. 
+
+
+## ----switch sampling----------------------------------------------------------
+antechinus_model <- dispersal_model(juvenile = 100, breeding = 50, gestation = 25, pouch = 25, .FS = "juvenile", .HS = "breeding", 
+                                    .sampling_stage = "pouch", .breeding_stage = "breeding", .visible_stage = "juvenile")
+antechinus_model
+
+## ----antechinus 1c------------------------------------------------------------
+ant_1c_juv <- simulate_kindist_custom(nsims = 100000, model = antechinus_model, kinship = "1C", cycle = -1, method = "vgamma")
+ant_1c_juv
+
+## ----antechinus fs------------------------------------------------------------
+ant_fs_juv <- simulate_kindist_custom(nsims = 100000, model = antechinus_model, kinship = "FS", cycle = -1, method = "vgamma")
+ant_fs_juv
+
+## ----ant po est---------------------------------------------------------------
+
+axpermute_standard(ant_1c_juv, ant_fs_juv, nsamp = 100, override = TRUE)
+
+## ----ant sample1--------------------------------------------------------------
+ant_1c_juv %>% sample_kindist(dims = 100, n = 1000) %>% axpermute_standard(ant_fs_juv, nsamp = 100, override = TRUE)
+
+
+## ----ant sample2--------------------------------------------------------------
+ant_1c_juv %>% sample_kindist(dims = 1000, n = 1000) %>% axpermute_standard(ant_fs_juv, nsamp = 100, override = TRUE)
+
+
+## ----ant sample3--------------------------------------------------------------
+ant_1c_juv %>% sample_kindist(dims = 2000, n = 1000) %>% axpermute_standard(ant_fs_juv, nsamp = 100, override = TRUE)
 
 

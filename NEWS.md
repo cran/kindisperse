@@ -1,4 +1,20 @@
-# kindisperse 0.9.1
+# kindisperse 0.10.1
+Expanded the `DispersalModel` object & functions to include optional `breeding_stage` & `visible_stage` parameters to further define dispersal.
+Altered `simulate_kindist_custom()` & `axials_standard()` etc. functions to explicitly take into account new aspects of the dispersal model, especially `-1` `cycle` numbers (which allow sampling before the 'official' beginning of a lifespan  (often defined as first dispersal). 
+Added `cycle` & `override` parameters to `axials_standard` & `axpermute_standard` functions. 
+Altered simulation functions & `KinPairSimulation` object to pass a model to the simulation object. 
+Added new tutorials to readme & vignettes for applying results to other species.
+Vastly improved documentation of almost all functions
+
+# kindisperse 0.10.0
+Implemented the 'DispersalModel' class and 'dispersal_model()' constructor function to enable descriptions of non-mosquito breeding & dispersal cycles. 
+Implemented the 'simulate_kindist_custom()' function to enable simulation of custom breeding, dispersal & sampling cycled defined by 'DispersalModel' objects. 
+Implemented the 'cycle' parameter in the above model object & simulation functions as well as 'axials_standard()' and 'axpermute_standard()' functions to enable the treatment of individuals collected at different (phased) stages of maturity. 
+Adjusted various class & function definitions to make compatible with custom dispersal model objects & simulations (e.g. KinPairData, KinPairSimulation, df_to_kinpair())
+Added generics & methods for accessing DispersalModel class objects (& the 'breeding_cycle' method for the KinPairData class)
+
+
+# kindisperse 0.9.2
 Changed all occurrences of the 'gamma' kernelshape/method parameter value to 'vgamma' to make it clear we are using a variance-gamma distribution, not a gamma distribution. 
 (effects simulation functions)
 Removed unused dispersal kernels (simulation functions)
