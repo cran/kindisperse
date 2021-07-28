@@ -1,6 +1,6 @@
 Package: kindisperse
 Title: Simulate and Estimate Close-Kin Dispersal Kernels
-Version: 0.10.1
+Version: 0.10.2
 Authors@R: 
     person(given = "Moshe-Elijah",
            family = "Jasper",
@@ -35,9 +35,9 @@ Collate: 'DispersalModel.R' 'KinPairData.R' 'dispersal_model.R'
         'simgraph_graph.R' 'simulate_kindist_composite.R'
         'simulate_kindist_custom.R' 'simulate_kindist_simple.R'
 NeedsCompilation: no
-Packaged: 2021-07-17 15:02:02 UTC; mossu
+Packaged: 2021-07-28 08:32:08 UTC; mossu
 Author: Moshe-Elijah Jasper [aut, cre]
     (<https://orcid.org/0000-0003-4541-3223>)
 Maintainer: Moshe-Elijah Jasper <moshe.jasper@unimelb.edu.au>
 Repository: CRAN
-Date/Publication: 2021-07-17 15:30:02 UTC
+Date/Publication: 2021-07-28 09:10:02 UTC

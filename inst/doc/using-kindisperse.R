@@ -110,7 +110,7 @@ halfsibs <- simulate_kindist_composite(nsims = 75, initsigma = init, breedsigma 
 
 halfcous <- simulate_kindist_composite(nsims = 75, initsigma = init, breedsigma = brd, gravsigma = grv, ovisigma = ovs, kinship = "H1C")
 
-# combine cousin distributions & recompose as object. Chaning kinship
+# combine cousin distributions and recompose as object. Chaning kinship
 # to standard value for unknown as I will be combining the distributions. 
 fc <- dplyr::mutate(kinpair_to_tibble(fullcous), kinship = "UN")
 hc <- dplyr::mutate(kinpair_to_tibble(halfcous), kinship = "UN")
